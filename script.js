@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => navLinks.classList.remove('open'));
     });
+
+    // Close mobile menu as soon as the user starts scrolling
+    window.addEventListener('scroll', () => {
+      navLinks.classList.remove('open');
+    }, { passive: true });
   }
 
   // Auto-update footer year
