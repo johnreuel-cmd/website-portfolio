@@ -390,10 +390,34 @@ ul { list-style: none; }
 .section-alt .tag { background: #ffffff; }
 
 /* ===== Projects ===== */
-.projects-grid {
+.projects-section {
+  position: relative;
+  width: 100%;
+}
+
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px 16px;
+  width: 100%;
+  position: relative;
+}
+
+.projects-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.projects-track {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 28px;
+  position: relative;
+}
+
+/* Buttons: hidden by default (mobile/tablet), enabled on monitors below */
+.carousel-btn {
+  display: none;
 }
 
 .card {
@@ -494,6 +518,54 @@ ul { list-style: none; }
     font-size: clamp(2.4rem, 3vw, 3.2rem);
     margin-left: auto;
   }
+
+  /* Projects carousel: only on monitors. Track slides via transform,
+     buttons sit outside the content column instead of shrinking it. */
+  .projects-track {
+    display: flex;
+    gap: 28px;
+    transition: transform 0.4s ease;
+  }
+
+  .projects-track .card {
+    flex: 0 0 calc((100% - 56px) / 3);
+    min-width: 0;
+  }
+
+  .carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--ink);
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .carousel-btn svg { width: 20px; height: 20px; }
+
+  .carousel-btn:hover {
+    background: var(--bg-alt);
+    border-color: var(--accent);
+  }
+
+  .carousel-btn[hidden] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .carousel-prev { left: -16px; transform: translate(-50%, -50%); }
+  .carousel-next { right: -16px; transform: translate(50%, -50%); }
+
+  .carousel-prev:hover { transform: translate(-50%, -50%) scale(1.08); }
+  .carousel-next:hover { transform: translate(50%, -50%) scale(1.08); }
 }
 
 /* Laptops / small desktops */
